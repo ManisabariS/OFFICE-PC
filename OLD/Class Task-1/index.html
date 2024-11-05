@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const array = [2,3,4,5,3,4,4,4,6,7,8];
+        var result =findMaxFreq(array)
+        console.log(result)
+
+        function findMaxFreq (arr)
+        {
+            var obj = {};
+        
+            let maxKey = null;
+            let maxValue = - Infinity;
+            
+            for (const ele of arr)
+            {
+                if(obj[ele])
+                {
+                    obj[ele]=count++;
+                }
+                else
+                {
+                    obj[ele] =1;
+                }                
+            }
+            //console.log(obj)
+            for (const [key, value] of Object.entries(obj))
+            {
+                if(value > maxValue)
+                {
+                    maxValue = value;
+                    maxKey = key;
+                }
+            }
+            return maxKey;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PSG College</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="favicon.png">
+</head>
+<body>
+  <header>
+    <h1>PSG College</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <section id="welcome">
+    <h2>Welcome to College Name</h2>
+    <p>Your future begins here. We offer world-class education, state-of-the-art facilities, and an enriching environment.</p>
+    <a href="about.html" class="btn">Learn More</a>
+  </section>
+
+  <section id="departments">
+    <h2>Departments</h2>
+    <ul>
+      <li>Computer Science</li>
+      <li>Mechanical Engineering</li>
+      <li>Business Administration</li>
+      <li>Arts & Humanities</li>
+    </ul>
+  </section>
+  
+
+
+
+
+  <div id="calendar"></div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        events: '/fetch-events'
+      });
+      calendar.render();
+    });
+  </script>
+<div id="news-section">
+    <h2>Latest News</h2>
+    <div id="news-container"></div>
+  </div>
+  <script>
+    fetch('/get-news')
+      .then(response => response.json())
+      .then(data => {
+        const newsContainer = document.getElementById('news-container');
+        data.forEach(item => {
+          const newsItem = document.createElement('div');
+          newsItem.innerHTML = `<h3>${item.title}</h3><p>${item.content}</p>`;
+          newsContainer.appendChild(newsItem);
+        });
+      });
+  </script>
+  <script>
+    document.getElementById('search').addEventListener('input', function() {
+      fetch(`/search?q=${this.value}`)
+        .then(response => response.json())
+        .then(data => {
+          let resultsDiv = document.getElementById('results');
+          resultsDiv.innerHTML = '';
+          data.forEach(result => {
+            let item = document.createElement('div');
+            item.textContent = result.name;
+            resultsDiv.appendChild(item);
+          });
+        });
+    });
+  </script>
+
+
+
+
+
+  <footer>
+    <p>&copy; 2024 PSG College | All Rights Reserved</p>
+  </footer>
+</body>
+</html>

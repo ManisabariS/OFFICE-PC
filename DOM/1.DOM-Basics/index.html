@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <h2 id="demo"></h2>
+    <h2 id="demo1"></h2>
+    <h2 id="demo2"></h2>
+    <input type="button" value="Load new document" onclick="newDoc()" />
+    <div style="text-align: center">
+      <h1>Hello World</h1>
+      <img
+        src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*OohqW5DGh9CQS4hLY5FXzA.png"
+        alt="Image-Hello world cannot be displayed"
+      />
+    </div>
+    <div style="text-align: center">
+      <button onclick="moveWindowX()">X-Increment</button>
+      <button onclick="moveWindowY()">Y-Increment</button><br /><br />
+      <div style="display: flex; flex-direction: row; justify-content: center">
+        <div>
+          <label for="xValue">X value: </label>
+          <input type="text" id="xValue" name="xValue" />
+        </div>
+        &nbsp;&nbsp;&nbsp;
+        <div>
+          <label for="yValue">Y value: </label>
+          <input type="text" id="yValue" name="yValue" />
+        </div>
+      </div>
+      <br />
+      <button style="height: 30px" onclick="openAndMoveWindow()">
+        OPEN-WINDOW
+      </button>
+    </div>
+
+    <script>
+        
+      document.getElementById("demo").innerHTML ="Page location is " + window.location.href;
+      document.getElementById("demo1").innerHTML ="cookiesEnabled is " + navigator.cookieEnabled;
+      document.getElementById("demo2").innerHTML ="navigator.appName is " + navigator.appName;
+      function newDoc() {
+        window.location.assign("https://www.w3schools.com");
+      }
+      var newWindow;
+      let x = 0,
+        y = 0;
+      function moveWindowX() {
+        newWindow.close();
+        x = x + 100;
+      }
+
+      function moveWindowY() {
+        newWindow.close();
+        y = y + 50;
+      }
+      function openAndMoveWindow() {
+        let xValue = document.getElementById("xValue").value;
+        x = Number(xValue);
+        let yValue = document.getElementById("yValue").value;
+        y = Number(yValue);
+
+        newWindow = window.open(
+          "https://example.com",
+          "_blank",
+          "width=500,height=400"
+        );
+        if (newWindow) {
+          newWindow.moveTo(x, y); // Moves the new window to specified coordinates
+        }
+      }
+    </script>
+
+    <script src="script.js"></script>
+    <br /><br /><br /><br />
+    <br /><br /><br /><br />
+    <br /><br /><br /><br />
+    <br /><br /><br /><br />
+    <br /><br /><br /><br />
+    <br /><br /><br /><br />
+  </body>
+</html>

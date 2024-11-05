@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nokia Keypad Mobile</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #e6e6e6;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        #phone {
+            width: 220px;
+            height: 500px; /* Increased height */
+            background-color: black;
+            border-radius: 25px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            padding: 20px;
+        }
+        #logo {
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        #display {
+            width: 180px;
+            height: 110px;
+            background-color: #d9d9d9;
+            border: 3px solid #666;
+            border-radius: 10px;
+            margin: 0 auto;
+            text-align: center;
+            line-height: 110px;
+            font-size: 18px;
+            color: black;
+            overflow: hidden;
+        }
+        #buttons {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .button {
+            width: 50px;
+            height: 50px;
+            background-color: gray;
+            margin: 5px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: white;
+            cursor: pointer;
+        }
+        #red-button {
+            background-color: red;
+        }
+        #green-button {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+
+<div id="phone">
+    <div id="logo">NOKIA</div>
+    <div id="display">OFF</div>
+    <div id="buttons">
+        <div class="row">
+            <div class="button" id="green-button">Green</div>
+            <div class="button" id="red-button">Red</div>
+        </div>
+        <div class="row">
+            <div class="button" data-value="1">1</div>
+            <div class="button" data-value="2">2</div>
+            <div class="button" data-value="3">3</div>
+        </div>
+        <div class="row">
+            <div class="button" data-value="4">4</div>
+            <div class="button" data-value="5">5</div>
+            <div class="button" data-value="6">6</div>
+        </div>
+        <div class="row">
+            <div class="button" data-value="7">7</div>
+            <div class="button" data-value="8">8</div>
+            <div class="button" data-value="9">9</div>
+        </div>
+        <div class="row">
+            <div class="button" data-value="*">*</div>
+            <div class="button" data-value="0">0</div>
+            <div class="button" data-value="#">#</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let redButton = document.getElementById('red-button');
+    let greenButton = document.getElementById('green-button');
+    let display = document.getElementById('display');
+    let isOn = false;
+    let enteredNumber = '';
+    let longPressCompleted = false; // Flag to track long press completion
+
+    // Function to simulate turning on the phone
+    function turnOnPhone() {
+        if (!isOn) {
+            display.innerHTML = '<video id="welcomeVideo" width="160" autoplay><source src="welcome.mp4" type="video/mp4"></video>';
+            let video = document.getElementById('welcomeVideo');
+
+            video.onended = function () {
+                display.innerHTML = '<img src="home.png" width="160" alt="Home Screen">';
+            };
+
+            isOn = true;
+        }
+    }
+
+    redButton.addEventListener('mousedown', function () {
+        this.pressTimer = setTimeout(turnOnPhone, 2000);
+    });
+
+    redButton.addEventListener('mouseup', function () {
+        clearTimeout(this.pressTimer);
+
+        if (isOn && longPressCompleted) {
+            display.innerHTML = '<img src="home.png" width="160" alt="Home Screen">';
+            longPressCompleted = false; // Reset long press flag
+        }
+    });
+
+    redButton.addEventListener('mouseout', function () {
+        clearTimeout(this.pressTimer);
+    });
+
+    // Adding functionality to number buttons
+    document.querySelectorAll('.button[data-value]').forEach(button => {
+        button.addEventListener('click', function() {
+            if (isOn) {
+                enteredNumber += this.getAttribute('data-value');
+                display.innerHTML = enteredNumber;
+            }
+        });
+    });
+
+    // Adding functionality to the green button
+    greenButton.addEventListener('click', function() {
+        if (isOn && enteredNumber) {
+            display.innerHTML = `${enteredNumber} calling...`;
+            enteredNumber = ''; // Clear entered number after calling
+        }
+    });
+
+    // Flag is set when the long press is completed
+    redButton.addEventListener('touchend', function() {
+        longPressCompleted = true;
+    });
+</script>
+
+</body>
+</html>

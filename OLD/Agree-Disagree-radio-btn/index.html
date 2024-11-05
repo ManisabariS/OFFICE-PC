@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radio Button Example</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Please agree to continue</h2>
+        <label>
+            <input type="radio" name="agreement" value="agree" onclick="toggleSubmitButton()"> Agree
+        </label>
+        <label>
+            <input type="radio" name="agreement" value="disagree" onclick="toggleSubmitButton()"> Disagree
+        </label>
+        <br><br>
+        <button id="submitButton" disabled>Submit</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
